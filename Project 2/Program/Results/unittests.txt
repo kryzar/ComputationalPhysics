@@ -1,0 +1,19 @@
+==== JACOBI ALGORITHM ====
+
+Matrix size: 3x3
+Frobenius norm: OK
+Jacobi operation time (s): 8e-06
+Number of iterations: 8
+
+Eigenvalues: 
+-2.60555
+1
+4.60555
+
+Eigenmatrix (each vector up to be multiplied by a different real constant): 
+   7.0711e-01  -6.7727e-11  -7.0711e-01
+   3.9223e-01   8.3205e-01   3.9223e-01
+   5.8835e-01  -5.5470e-01   5.8835e-01
+
+====/ JACOBI ALGORITHM ====
+

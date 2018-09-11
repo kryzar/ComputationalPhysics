@@ -1,0 +1,6 @@
+ETHEL
+
+
+- Calculer les énergies relatives d'un système non-interactif
+
+- Regarder le nombre d'eigenvalues à garder

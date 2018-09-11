@@ -1,0 +1,6 @@
+==== INTERACTIVE CASE ====
+
+Number of meshpoints: 200
+rho_max: 7.85
+Omega: 0
+

@@ -1,0 +1,12 @@
+\BOOKMARK [0][-]{chapter.1}{Resolution of the equation Ax=w with the method of gaussian elimination}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Transformation of A into a upper triangular matrix}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Comparison with other methods}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Limits of the gaussian elimination law}{chapter.1}% 4
+\BOOKMARK [0][-]{chapter.2}{Special case : tridiagonal matrix}{}% 5
+\BOOKMARK [1][-]{section.2.1}{The one-dimensional Poisson equation}{chapter.2}% 6
+\BOOKMARK [2][-]{subsection.2.1.1}{Special use of Poisson equation}{section.2.1}% 7
+\BOOKMARK [2][-]{subsection.2.1.2}{Rewriting of the equation as a set of linear equations}{section.2.1}% 8
+\BOOKMARK [1][-]{section.2.2}{Special algorithm}{chapter.2}% 9
+\BOOKMARK [2][-]{subsection.2.2.1}{Specialization of the general algorithm}{section.2.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.2}{Solution to the Poisson equation}{section.2.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Comparisons}{chapter.2}% 12

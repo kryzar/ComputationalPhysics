@@ -1,0 +1,510 @@
+\documentclass[a4paper, twoside, 11pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[top= 120pt, left=80pt, right=80pt]{geometry} %marges
+\usepackage{setspace} %interlignage
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{array}
+\usepackage{csquotes}
+\usepackage[numbers,square]{natbib}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{adjustbox}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{dsfont}
+%%\usepackage{braket}
+\usepackage{physics}
+\usepackage{amsfonts}
+\usepackage[numbers,square]{natbib}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{wasysym}
+\usepackage{algpseudocode}
+\usepackage[ruled]{algorithm2e}
+\usepackage{caption}
+
+
+%%%%%% COULEURS CODE C++
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{red},
+  commentstyle=\itshape\color{gray},
+  identifierstyle=\color{NavyBlue},
+  stringstyle=\color{black},
+}
+
+\lstdefinestyle{customasm}{
+  belowcaptionskip=1\baselineskip,
+  frame=L,
+  xleftmargin=\parindent,
+  language=[x86masm]Assembler,
+  basicstyle=\footnotesize\ttfamily,
+  commentstyle=\itshape\color{purple!40!black},
+}
+
+\lstset{escapechar=@,style=customc}
+
+%%%%%% STYLES DE THÉORÈMES
+
+\newtheoremstyle{theorem}%	Name
+  {}%	Space above
+  {}%	Space below
+  {}%	Body font
+  {}%	Indent amount
+  {\bfseries}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{exemple}%	Name
+  {}%	Space above
+  {}%	Space below
+  {\color{Gray}\itshape}%	Body font
+  {}%	Indent amount
+  {\color{Gray}\itshape}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{remark}%	Name
+  {}%	Space above
+  {}%	Space below
+  {\itshape}%	Body font
+  {}%	Indent amount
+  {\bfseries}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+
+%%%%%% DÉCLARATION DES THÉORÈMES
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemme}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[chapter]
+
+\theoremstyle{exemple}
+\newtheorem*{exemple}{Example}
+
+\newcommand{\mimi}{\mathrm{Je\ t'aime}}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} %Pour personnaliser la largeur des colonnes dans des tabular tout en restant centré
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{FYS3150\\Project 5 -- }
+\author{Antoine Hugounet \& Ethel Villeneuve}
+\date{December 2017 \\University of Oslo \\ \url{https://github.com/kryzar/Calypso.git}}
+
+
+
+\begin{document}
+\selectlanguage{english}
+\maketitle
+
+
+\begin{abstract}
+
+
+
+\end{abstract}
+
+
+\tableofcontents
+
+
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+
+\chapter{Theory}
+
+    \section{One space-dimension equation}
+
+        \subsection{Analytic solutions}
+
+            \begin{equation*}
+                \frac{\partial^2u(x,t)}{\partial x^2}=\frac{\partial u(x,t)}{\partial t}
+                \tag{1}
+            \end{equation*}
+
+        \subsection{Schemes and algorithms}
+
+            \begin{equation*}
+                \frac{\partial^2u(x,t)}{\partial x^2}=\frac{\partial u(x,t)}{\partial t}
+                \tag{1}
+            \end{equation*}
+            %
+            for $t>0$ and $x\in[0,L]$. For the following, we will use a more compact notation. The previous equation can then be written as :
+
+            \begin{equation*}
+                u_{xx}=u_t
+                \tag{1'}
+            \end{equation*}
+
+            We set the initial conditions at $t=0$ :
+
+            \begin{equation*}
+                u(x,0)=0 \hspace{1cm} 0<x<L
+            \end{equation*}
+            %
+            with $L=1$ the length of the $x$-region of interest.
+        The boundary conditions for $t>0$ are
+
+            \begin{align*}
+                u(0,t)&=0\\
+                u(L,t)&=1
+            \end{align*}
+
+        euuuuuh voir le Nvier-Stokes\\
+        We will consider three methodes for partial differential equations : the explicit forward Euler algorithm, the implicit backward Euler algorithm and the implicit Crank-Nicolson scheme.
+
+            \subsubsection{Explicit forward Euler algorithm}
+
+                \paragraph{}
+
+                    \begin{align*}
+                        u_t &\approx \frac{u(x_i,t_j + \Delta t)-u(x_i,t_j)}{\Delta t} =                                                                 \frac{u_{i,j+1}-u_{i,j}}{\Delta t}\\
+                        u_{xx} &\approx \frac{u(x_i + \Delta x,t_j)-2u(x_i,t_j)+u(x_i - \Delta x,t_j)}{\Delta x^2} = \frac{u_{i+1,j}-2u_{i,j}+u_{i-1,j}}{\Delta x^2}
+                    \end{align*}
+
+                    Using the equation (1'), we have :
+
+                    \begin{align*}
+                        u_{xx}&=u_t\\
+                        \frac{u_{i+1,j}-2u_{i,j}+u_{i-1,j}}{\Delta x^2}&=\frac{u_{i,j+1}-u_{i,j}}{\Delta t}\\
+                        u_{i,j+1}&=\frac{\Delta t}{\Delta x^2}(u_{i+1,j}-2u_{i,j}+u_{i-1,j})+u_{i,j}
+                    \end{align*}
+                    %
+                    defining $\displaystyle \frac{\Delta t}{\Delta x^2}=\alpha$, we get
+
+                    \begin{align*}
+                        u_{i,j+1}=(1-2\alpha)u_{i,j}+\alpha(u_{i-1,j}+u_{i+1,j})
+                        \tag{3}
+                    \end{align*}
+                    %
+                    the explicit forward Euler scheme. We can write this equation in matrix form. We use a vector $V_j$ at a time $t_j=j\Delta t$ which can be written as, knowing the boundary conditions $u_{0,j} = 0$ and $u_{n+1,j} = 1$ :
+
+                    \begin{equation*}
+                        V_j = \left[\begin{matrix}
+                                        u_{1,j} \\
+                                        u_{2,j} \\
+                                        \dots \\
+                                        \dots \\
+                                        u_{n,j}
+                                    \end{matrix}\right]
+                    \end{equation*}
+                    %
+                    Rewriting (3), we end up with
+
+                    \begin{equation*}
+                        V_{j+1}= \hat{A} V_j \Longleftrightarrow V_{j+1} = \hat{A}^{j+1}V_0
+                    \end{equation*}
+                    %
+                    with $\hat{A}$ a matrix given by
+
+                    \begin{equation*}
+                        \hat{A} = \left[\begin{matrix}
+                                          1-2\alpha & \alpha & 0 & \dots & \dots & 0\\
+                                          \alpha & 1-2\alpha & \alpha & 0 & \dots & 0 \\
+                                          \dots & \dots & \dots & \dots & \dots & \dots\\
+                                          \dots & \dots & \dots & \dots & \dots & \dots\\
+                                          0 & \dots & 0 & \alpha & 1-2\alpha & \alpha \\
+                                          0 & \dots & \dots & 0 & \alpha & 1-2\alpha
+                                        \end{matrix} \right]
+                    \end{equation*}
+                    %
+                    or we can write $\hat{A}$ as $\hat{A}=\hat{I}- \alpha \hat{B}$ with
+
+                    \begin{equation*}
+                        \hat{B} =\left[\begin{matrix}
+                                     2 & -1 & 0 & \dots & \dots & 0 \\
+                                     -1 & 2 & -1 & 0 & \dots & 0 \\
+                                     \dots & \dots & \dots & \dots & \dots & \dots\\
+                                     \dots & \dots & \dots & \dots & \dots & \dots\\
+                                     0 & \dots & 0 & -1 & 2 & -1 \\
+                                     0 & \dots & \dots & 0 & -1 & 2
+                                  \end{matrix} \right]
+                    \end{equation*}
+                    %
+                    The latter expression allows us to find the eigenvalues of $\hat{A}$ using $\lambda_i=1-\alpha \mu_i$ with $\mu_i$ the eigenvalues of $\hat{B}$.
+
+                    \begin{center}
+                    \begin{algorithm}[H]
+
+                    \SetAlgoLined
+
+                        \KwIn{$j_f$} \Comment{the final time}\\
+                        \KwIn{$n_t$} \Comment{the number of time-steps}\\
+                        \KwIn{$n$} \Comment{the number of mesh-points}
+
+                        \textbf{Initializations:}  \\
+                            $\displaystyle \frac{j_f}{n_t} \rightarrow \Delta j$
+                            $\displaystyle \frac{1}{n} \rightarrow \Delta x$
+
+                            \For{$0 \leq i \leq n$}
+                            {
+                                $0 \rightarrow V_{i,0}$
+                            }
+                            $1 \rightarrow V_{n+1,0}$ \Comment{Initialization of the vector $V_0$ at $t=0$} \\
+
+                            $\displaystyle \frac{\Delta j}{\Delta x^2} \rightarrow \alpha$\\
+                            \ \\
+                            \ \\
+                            \textbf{Beginning of the algorithm:} \\
+                            \For{$0 \leq j \leq j_f$}
+                            {
+                                \For{$1 \leq i < n$}
+                                {
+                                    $(1-2\alpha)V_i + \alpha(V_{i-1} + V_{i+1}) \rightarrow V_i$ \\
+                                    $i+1 \rightarrow i$
+                                }
+                                $j+\Delta j \rightarrow j$
+                            }
+
+                    \caption{Explicit scheme algorithm}
+                    \end{algorithm}
+                    \end{center}
+
+
+            \subsubsection{Implicit backward Euler algorithm}
+
+                    \begin{align*}
+                        u_t & \approx \frac{u_{i,j} - u_{i,j-1}}{\Delta t} \\
+                        u_{xx} &\approx \frac{u_{i+1,j}-2u_{i,j}+u_{i-1,j}}{\Delta x^2}
+                    \end{align*}
+
+                    Using again the equation (1') :
+
+                    \begin{align*}
+                        u_{xx}&=u_t\\
+                        \frac{u_{i+1,j}-2u_{i,j}+u_{i-1,j}}{\Delta x^2} &=    \frac{u_{i,j} - u_{i,j-1}}{\Delta t}\\
+                        u_{i,j-1}&=\frac{\Delta t}{\Delta x^2}(-u_{i+1,j}+2u_{i,j}-u_{i-1,j})+u_{i,j}
+                    \end{align*}
+                    %
+                    defining again $\displaystyle \frac{\Delta t}{\Delta x^2}=\alpha$ :
+
+                    \begin{align*}
+                        u_{i,j-1}=(1+2\alpha)u_{i,j}-\alpha(u_{i-1,j}+u_{i+1,j})
+                        \tag{4}
+                    \end{align*}
+
+                    This is the implicit backward Euler scheme. Similarly to the explicit scheme, we use the vector $V_j$ to rewrite this equation in a matrix form.
+
+                    \begin{equation*}
+                        \hat{A}V_j = V_{j-1} \Longleftrightarrow V_j=\hat{A}^j V_0
+                    \end{equation*}
+                    %
+                    with
+
+                    \begin{equation*}
+                        \hat{A} = \left[\begin{matrix}
+                                          1+2\alpha & -\alpha & 0 & \dots & \dots & 0\\
+                                          -\alpha & 1+2\alpha & -\alpha & 0 & \dots & 0 \\
+                                          \dots & \dots & \dots & \dots & \dots & \dots\\
+                                          \dots & \dots & \dots & \dots & \dots & \dots\\
+                                          0 & \dots & 0 & -\alpha & 1+2\alpha & -\alpha \\
+                                          0 & \dots & \dots & 0 & -\alpha & 1+2\alpha
+                                        \end{matrix} \right]
+                    \end{equation*}
+                    %
+                    And again, using the same matrix $\hat{B}$ we can rewrite $\hat A$ as $\hat{A}=\hat{I}+\alpha \hat{B}$ and find the eigenvalues of $\hat{A}$ saying that $\lambda_i = 1 - \alpha \mu_i$.
+
+                    \begin{center}
+                    \begin{algorithm}[H]
+
+                    \SetAlgoLined
+
+                        \KwIn{$a$} \Comment{The lower diagonal}\\
+                        \KwIn{$b$} \Comment{The diagonal}\\
+                        \KwIn{$c$} \Comment{The upper diagonal}\\
+                        \KwIn{$y$} \Comment{A vector : $A.u = y$ with $A$ a matrix composed of the three diagonals}
+
+                        \For{$1 \leq i < n$}
+                        {
+                            $\displaystyle b_{i}-\frac{a}{b_{i-1}} \times c \rightarrow b_i$\\
+                            $\displaystyle y_i - \frac{a}{b_{i-1}} \times y_{i-1} \rightarrow y_i$   \\
+                            $i+1 \rightarrow i$
+                        } \Comment{Forward substitution}
+
+                        \For{$0 < i \leq n-1$}
+                        {
+                            $\displaystyle \frac{y_i - c \times u_{i+1}}{b_i} \rightarrow u_i$\\
+                            $i-1 \rightarrow i$
+                        } \Comment{Backward substitution}
+                    \caption{Gaussian elimination for a tridiagonal matrix}
+                    \end{algorithm}
+                    \end{center}
+
+
+                    \begin{center}
+                    \begin{algorithm}[H]
+
+                    \SetAlgoLined
+
+                        \KwIn{$j_f$} \Comment{the final time}\\
+                        \KwIn{$n_t$} \Comment{the number of time-steps}\\
+                        \KwIn{$n$} \Comment{the number of mesh-points} \\
+
+                        \textbf{Initializations:}  \\
+                            $\displaystyle \frac{j_f}{n_t} \rightarrow \Delta j$
+                            $\displaystyle \frac{1}{n} \rightarrow \Delta x$
+
+                            \For{$0 \leq i \leq n$}
+                            {
+                                $0 \rightarrow V_{i,0}$
+                            }
+                            $1 \rightarrow V_{n+1,0}$ \Comment{Initialization of the vector $V_0$ at $t=0$} \\
+
+                            $\displaystyle \frac{\Delta j}{\Delta x^2} \rightarrow \alpha$\\
+                            $-\alpha \rightarrow a$\\
+                            $1+2\alpha \rightarrow b$\\
+                            $-\alpha \rightarrow c$\\
+                            $V_0 \rightarrow y$\\
+                            \ \\
+                        \textbf{Beginning of the algorithm:} \\
+                        \For{$0 \leq j \leq j_f$}
+                        {
+                             Gaussian elimination\\
+                             $u \rightarrow y$ \\
+                             $j+\Delta j \rightarrow j$
+                        }
+                    \caption{Implicit scheme algorithm}
+                    \end{algorithm}
+                    \end{center}
+
+
+            \subsubsection{Implicit Crank-Nicolson scheme}
+
+                \paragraph{}We can generalize these methods by combining the implicit and the explicit methods. We introduce a parameter $\theta$ with which we can write an equation :
+
+                    \begin{equation*}
+                        \frac{\theta}{\Delta x^2}(u_{i-1,j}-2u_{i,j}+u_{i+1,j})+\frac{1-\theta}{\Delta x^2}(u_{i+1,j-1}-2u_{i,j-1}+u_{i-1,j-1}) = \frac{1}{\Delta t}(u_{i,j}-u_{i,j-1})
+                        \tag{5}
+                    \end{equation*}
+                    %
+                    If we set $\theta = 0$ then we find the forward formula, if we set $\theta=1$ this is the backward formula we end with. Then, if we set $\displaystyle \theta=\frac{1}{2}$ we obtain a new formula : the Crank-Nicolson formula.
+
+                    \begin{align*}
+                        &\frac{1}{2\Delta x^2}(u_{i-1,j}-2u_{i,j}+u_{i+1,j}+u_{i+1,j-1}-2u_{i,j-1}+u_{i-1,j-1}) = \frac{1}{\Delta t}(u_{i,j}-u_{i,j-1})\\
+                        &\frac{\Delta t}{2\Delta x^2}(u_{i-1,j} - 2u_{i,j} + u_{i+1,j})-u_{i,j} = \frac{\Delta t}{2\Delta x^2}(-u_{i-1,j-1}+2u_{i,j-1}-u_{i+1,j-1})-u_{i,j-1}
+                    \end{align*}
+                    %
+                    with $\frac{\Delta t }{\Delta x^2}=\alpha$,
+
+                    \begin{align*}
+                        (1+\alpha)u_{i,j}-\frac{\alpha}{2}(u_{i-1,j}+u_{i+1,j}) &= (1-\alpha)u_{i,j-1}+\frac{\alpha}{2}(u_{i-1,j-1}+u_{i+1,j-1})\\
+                        (2+2\alpha)u_{i,j}-\alpha(u_{i-1,j}+u_{i+1,j}) &= (2-2\alpha)u_{i,j-1}+\alpha(u_{i-1,j-1}+u_{i+1,j-1})
+                    \end{align*}
+                    %
+                    which can be written in matrix form as
+
+                    \begin{equation*}
+                        (2\hat{I}+\alpha\hat{B})V_j=(2\hat{I}-\alpha \hat{B})V_{j-1}
+                    \end{equation*}
+                    %
+                    with
+
+                    \begin{equation*}
+                        \hat{B} =\left[\begin{matrix}
+                                     2 & -1 & 0 & \dots & \dots & 0 \\
+                                     -1 & 2 & -1 & 0 & \dots & 0 \\
+                                     \dots & \dots & \dots & \dots & \dots & \dots\\
+                                     \dots & \dots & \dots & \dots & \dots & \dots\\
+                                     0 & \dots & 0 & -1 & 2 & -1 \\
+                                     0 & \dots & \dots & 0 & -1 & 2
+                                      \end{matrix} \right]
+                    \end{equation*}
+                    %
+                    The Crank-Nicolson scheme can be then written as
+
+                    \begin{equation*}
+                        V_j = (2\hat{I}+\alpha \hat{B})^{-1}(2\hat{I}-\alpha \hat{B})V_{j-1}
+                    \end{equation*}
+
+                    \begin{center}
+                    \begin{algorithm}[H]
+
+                    \SetAlgoLined
+
+                        \KwIn{$j_f$} \Comment{the final time}\\
+                        \KwIn{$n_t$} \Comment{the number of time-steps}\\
+                        \KwIn{$n$} \Comment{the number of mesh-points} \\
+
+                        \textbf{Initializations:}  \\
+                            $\displaystyle \frac{j_f}{n_t} \rightarrow \Delta j$
+                            $\displaystyle \frac{1}{n} \rightarrow \Delta x$
+
+                            \For{$0 \leq i \leq n$}
+                            {
+                                $0 \rightarrow V_{i,0}$
+                            }
+                            $1 \rightarrow V_{n+1,0}$ \Comment{Initialization of the vector $V_0$ at $t=0$} \\
+
+                            $\displaystyle \frac{\Delta j}{\Delta x^2} \rightarrow \alpha$\\
+                            $-\alpha \rightarrow a$\\
+                            $2+2\alpha \rightarrow b$\\
+                            $-\alpha \rightarrow c$\\
+                            $V_0 \rightarrow y$\\
+                            \ \\
+                         \textbf{Beginning of the algorithm:} \\
+                             \For{$0 \leq j < j_f$}
+                             {
+                                \For{$1 \leq i < n$}
+                                    {
+                                        $(2 - 2 \alpha) \times u_i + \alpha (u_{i-1}+u_{i+1}) \rightarrow y_i$ \\
+                                        $i+1\rightarrow i$
+                                    } \Comment{Initialization of $y$}\\
+                                Gaussian elimination.\\
+                                $u\rightarrow y$ \\
+                                $j+\Delta j \rightarrow j$
+                             }
+                    \caption{Crank-Nicolson scheme algorithm}
+                    \end{algorithm}
+                    \end{center}
+
+
+
+
+\chapter{Implementation}
+
+
+\chapter{Results}
+
+
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+
+\chapter*{Bibliography}
+
+
+
+\end{document}

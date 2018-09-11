@@ -1,0 +1,25 @@
+\begin{center}
+                    \begin{algorithm}[H]
+
+                    \SetAlgoLined
+
+                        \KwIn{$a$} \Comment{The lower diagonal}\\
+                        \KwIn{$b$} \Comment{The diagonal}\\
+                        \KwIn{$c$} \Comment{The upper diagonal}\\
+                        \KwIn{$y$} \Comment{The vector of the matrix*vector equation $A.u = y$}
+
+                        \For{$1 \leq i < n$}
+                        {
+                            $\displaystyle b_{i}-\frac{a}{b_{i-1}} \times c \rightarrow b_i$\\
+                            $\displaystyle y_i - \frac{a}{b_{i-1}} \times y_{i-1} \rightarrow y_i$   \\
+                            $i+1 \rightarrow i$
+                        } \Comment{Forward substitution}
+
+                        \For{$0 < i \leq n-1$}
+                        {
+                            $\displaystyle \frac{y_i - c \times u_{i+1}}{b_i} \rightarrow u_i$\\
+                            $i-1 \rightarrow i$
+                        } \Comment{Backward substitution}
+                    \caption{Gaussian elimination for a tridiagonal matrix}
+                    \end{algorithm}
+                    \end{center}

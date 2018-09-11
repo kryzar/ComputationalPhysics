@@ -1,0 +1,206 @@
+%%%%%%%%%%%%%%% COPYRIGHT ANTOINE HUGOUNET
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[a4paper, twoside, 11pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top= 120pt, left=80pt, right=80pt]{geometry} %marges
+\usepackage{setspace} %interlignage
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{lmodern} 
+\usepackage{array}
+\usepackage{csquotes}
+\usepackage[numbers,square]{natbib}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{ragged2e}
+\usepackage{adjustbox}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{dsfont}
+\usepackage[miktex]{gnuplottex}
+
+
+%%%%%% STYLES DE THÉORÈMES
+
+\newtheoremstyle{theorem}%	Name
+  {}%	Space above
+  {}%	Space below
+  {}%	Body font
+  {}%	Indent amount
+  {\bfseries}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{exemple}%	Name
+  {}%	Space above
+  {}%	Space below
+  {\color{Gray}\itshape}%	Body font
+  {}%	Indent amount
+  {\color{Gray}\itshape}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{remark}%	Name
+  {}%	Space above
+  {}%	Space below
+  {\itshape}%	Body font
+  {}%	Indent amount
+  {\bfseries}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+  
+%%%%%% DÉCLARATION DES THÉORÈMES
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Théorème}[section]
+\newtheorem{lemme}{Lemme}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{definition}{Définition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remarque}[chapter]
+
+\theoremstyle{exemple}
+\newtheorem*{exemple}{Exemple}
+
+
+%%%%%% COMMANDES QUI SIMPLIFIENT LA VIE
+
+\newcommand{\legende}[1]{
+\begin{center}
+	\begin{minipage}{12cm}
+		\begin{center}
+			\textit{\textcolor{WildStrawberry!30}{#1}}
+		\end{center}
+	\end{minipage}
+\end{center}}
+
+\newcommand{\sherlock}[2]{
+	\begin{equation}
+		\textcolor{WildStrawberry}{#1}
+	\end{equation}
+	\legende{#2}
+}
+	
+\newcommand{\sherlocked}[1]{
+	\begin{equation}
+		\textcolor{WildStrawberry}{#1}
+	\end{equation}
+}
+
+	
+\newcommand{\defSherlock}[3]{
+	\begin{definition}[\textbf{#1}]
+		\sherlock{#2}{#3}
+	\end{definition}
+}
+
+\newcommand{\defSherlocked}[2]{
+	\begin{definition}[\textbf{#1}]
+		\sherlocked{#2}
+	\end{definition}
+}	
+
+\newcommand{\propSherlock}[3]{
+	\begin{proposition}[\textbf{#1}]
+		\sherlock{#2}{#3}
+	\end{proposition}
+}
+
+\newcommand{\propSherlocked}[2]{
+	\begin{proposition}[\textbf{#1}]
+		\sherlocked{#2}
+	\end{proposition}
+}
+
+\newcommand{\textSherlocked}[1]{
+	\begin{center}
+		\textcolor{WildStrawberry}{#1}
+	\end{center}
+}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{FYS3150\\Project 1 - Atom Heart Matrix}
+\author{Hugounet, Antoine \& Villeneuve, Ethel}
+\date{September 2017 \\University of Oslo \\ \url{https://github.com/kryzar/Alcyonide.git}}
+
+
+
+\begin{document}
+\maketitle
+
+\renewcommand{\contentsname}{Table of contents}
+\tableofcontents
+	
+
+\chapter*{A short glimpse to this project}	
+	
+\paragraph{}This project uses the pretext of a differential equations to study the implementation of Linear Algebra algorithms with modern languages. It aims to make one realize that many of the scientific problems can be solved with simple Linear Algebra tricks which involve matrices, vectors, diagonalisation, etc. However, if those algorithm remain rather simple for a human being, they require quite a lot of memory and power for a standard laptop.
+	\\Calculating the inverse of a matrix using its adjugate matrix and its determinant is a huge operation for sizes $n>{10}^{3}$. The gaussian elimination appears to be less direct but way more efficient regarding the operation time. It's a progress but the LU decomposition is even better and the gaussian elimination, in its brute force approach does not work for matrices which have any zero diagonal term. It even produces a result (which is obviously wrong) for non-singular matrices! Efficient but restrictive.
+
+\paragraph{}In the end, the results we obtain are approximations of exact mathematical results, due to loss of numerical precision and the fact that ordinateur are built on discrete values. The problematic is then to evaluate carefully our objectives. Stability ? Precision ? Speed ? Memory ? It is the job of the programmer to find its own balance and to code in consequence. The first rule of computational science is that no program is fully reliable, no program fully is impartial.
+	
+	
+\chapter{The gaussian elimination aglorithm}
+
+	\section{General case}
+	
+		\paragraph{}The gaussian elimination if an algorithm for solving systems of linear algebra.
+		
+		\begin{figure}[htbp]
+       		\begin{center}
+         		\input{../Plots/tridiagonal10.tex}
+       		\end{center}
+       		\caption{LÉGENDE}
+     	\end{figure}
+	
+	\section{Special case}	
+
+
+	
+				
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

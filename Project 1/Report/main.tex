@@ -1,0 +1,420 @@
+%%%%%%%%%%%%%%% COPYRIGHT ANTOINE HUGOUNET & ETHEL VILLENEUVE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[a4paper, twoside, 11pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[top= 120pt, left=80pt, right=80pt]{geometry} %marges
+\usepackage{setspace} %interlignage
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{lmodern} 
+\usepackage{array}
+\usepackage{csquotes}
+\usepackage[numbers,square]{natbib}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{ragged2e}
+\usepackage{adjustbox}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{dsfont}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
+%%%%%% STYLES DE THÉORÈMES
+
+\newtheoremstyle{theorem}%	Name
+  {}%	Space above
+  {}%	Space below
+  {}%	Body font
+  {}%	Indent amount
+  {\bfseries}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{exemple}%	Name
+  {}%	Space above
+  {}%	Space below
+  {\color{Gray}\itshape}%	Body font
+  {}%	Indent amount
+  {\color{Gray}\itshape}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+
+\newtheoremstyle{remark}%	Name
+  {}%	Space above
+  {}%	Space below
+  {\itshape}%	Body font
+  {}%	Indent amount
+  {\bfseries}%	Theorem head font
+  {.}%	Punctuation after theorem head
+  { }%	Space after theorem head, ' ', or \newline
+  {}%	Theorem head spec (can be left empty, meaning `normal')
+  
+%%%%%% DÉCLARATION DES THÉORÈMES
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Théorème}[section]
+\newtheorem{lemme}{Lemme}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{definition}{Définition}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remarque}[chapter]
+
+\theoremstyle{exemple}
+\newtheorem*{exemple}{Exemple}
+
+
+%%%%%% COMMANDES QUI SIMPLIFIENT LA VIE
+
+\newcommand{\legende}[1]{
+\begin{center}
+	\begin{minipage}{12cm}
+		\begin{center}
+			\textit{\textcolor{WildStrawberry!30}{#1}}
+		\end{center}
+	\end{minipage}
+\end{center}}
+
+\newcommand{\sherlock}[2]{
+	\begin{equation}
+		\textcolor{WildStrawberry}{#1}
+	\end{equation}
+	\legende{#2}
+}
+	
+\newcommand{\sherlocked}[1]{
+	\begin{equation}
+		\textcolor{WildStrawberry}{#1}
+	\end{equation}
+}
+
+	
+\newcommand{\defSherlock}[3]{
+	\begin{definition}[\textbf{#1}]
+		\sherlock{#2}{#3}
+	\end{definition}
+}
+
+\newcommand{\defSherlocked}[2]{
+	\begin{definition}[\textbf{#1}]
+		\sherlocked{#2}
+	\end{definition}
+}	
+
+\newcommand{\propSherlock}[3]{
+	\begin{proposition}[\textbf{#1}]
+		\sherlock{#2}{#3}
+	\end{proposition}
+}
+
+\newcommand{\propSherlocked}[2]{
+	\begin{proposition}[\textbf{#1}]
+		\sherlocked{#2}
+	\end{proposition}
+}
+
+\newcommand{\textSherlocked}[1]{
+	\begin{center}
+		\textcolor{WildStrawberry}{#1}
+	\end{center}
+}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{FYS3150\\Project 1 - Atom Heart Matrix}
+\author{Hugounet, Antoine \& Villeneuve, Ethel}
+\date{September 2017 \\University of Oslo \\ \url{https://github.com/kryzar/Alcyonide.git}}
+
+
+
+\begin{document}
+\maketitle
+
+\renewcommand{\contentsname}{Table of contents}
+\tableofcontents
+	
+
+\chapter*{A short glimpse to this project}	
+	
+\paragraph{}This project uses the pretext of a differential equations to study the implementation of Linear Algebra algorithms with modern languages. It aims to make one realize that many of the scientific problems can be solved with simple Linear Algebra tricks which involve matrices, vectors, diagonalization, etc. However, if those algorithm remain rather simple for a human being, they require quite a lot of memory and power for a standard laptop.
+	\\Calculating the inverse of a matrix using its adjugate matrix and its determinant is a huge operation for sizes $n>{10}^{3}$. The gaussian elimination appears to be less direct but way more efficient regarding the operation time. It's a progress but the LU decomposition is even better than the gaussian elimination, and its brute force approach does not work for matrices which have any zero diagonal term. It even produces a result (which is obviously wrong) for non-singular matrices! Efficient but restrictive.
+
+\paragraph{}In the end, the results we obtain are approximations of exact mathematical results, due to loss of numerical precision and the fact that computers are built on discrete values. The problematic is then to evaluate carefully our objectives. Stability ? Precision ? Speed ? Memory ? It is the job of the programmer to find its own balance and to code in consequence. The first rule of computational science is that no program is fully reliable, no program fully is impartial.
+	
+	
+	
+\chapter{Resolution of the equation $\mathbf{Ax=w}$ with the method of gaussian elimination}
+
+	\footnotesize{\itshape{The files for this chapter are in the folder "General case" on GitHub. You will find the program in C++ and some data from the algorithm.}}
+
+\normalsize
+	\paragraph{}The gaussian elimination is an algorithm used for solving systems of linear equations\footnote{It is also called "row reduction".}. This algorithm is composed of two parts : a forward substitution to make the $n$ sized matrix an upper triangular matrix and a backward substitution to solve the equations.
+	\\The gaussian elimination is a good example of a easily computerizable algorithm, but which can be subtle to code. For large $n$, it is more efficient than the classical method of matrix inversion which needs a lot of calculations.
+	
+		\section{Transformation of A into a upper triangular matrix}					
+			\caption{Gaussian algorithm}
+			\begin{algorithmic}[1]
+				\For{$\text{row} = \overline{1,n}$}
+					\State $\text{ratio} \gets A[\text{row}, \text{row}-1] / A[\text{row}-1, \text{row}-1]$
+					\For{$i = \overline{\text{row},n}$}
+						\State $A[i,\text{row}-1] \gets 0$
+					\EndFor
+					
+					\For{$\text{col} = \overline{\text{row}, n}$}
+						\State $A[\text{row}, \text{col}] \gets A[\text{row}, \text{col}] - \text{ratio} * A[\text{row} - 1 , \text{col}]$
+					\EndFor
+					\State $w[\text{row}] \gets w[\text{row}] - \text{ratio} * w[\text{row} - 1]$
+					\If $A[\text{row} , \text{row}] = 0$
+						\State \text{ERROR. Division by 0!}
+					\EndIf
+				\EndFor
+			\end{algorithmic}
+	
+
+\begin{remark}We have directly changed to $0$ the first element of each line and all the elements below. It spares the computer some useless calculations and avoids us numerical approximations which might not end to $0$. \end{remark}
+	
+\paragraph{}The program begins with a set of tests to set aside the possible errors. This algorithm is quite efficient but is no match at all to Armadillo. Please build and run the main.cpp file to test the efficiency and limits of the algorithm\footnote{We put the algorithm in an external cpp file to make it easier to export use with other problems.}
+	
+	\section{Comparison with other methods}
+	\paragraph{} There are two other methods : the brute force approach of matrix inversion and the LU decomposition.
+		\begin{itemize}
+			\item{The classical approach for the matrix inversion needs a lot of calculations and will not be efficient enough compared to the two others.}
+			\item{The LU decomposition is also a process of gaussian elimination. It consist of separate the matrix A into two matrices : a lower triangular ($L$) and an upper triangular ($U$) matrix. The determinant is the sum of $U$'s diagonal elements. We will use the LU function of \emph{Armadillo} to compare the efficiency of the methods. In the following array, you will see the results regarding the execution time and relative error for our algorithm and the Armadillo function.}
+		\end{itemize}
+		\paragraph{}
+	
+	\begin{center}
+	\begin{tabular}{|*{5}{c|}}
+  \hline
+  n  & \multicolumn{3}{|c|}{Operation time (s)}  & relative error \\
+	\hline
+	 & Our algorithm & LU armadillo & difference between them & \\
+  \hline
+  $2$ & $9*10^-6$   & $8*10^-6$ & $1*10^-6$ & $-0.903089987$ \\
+	\hline
+  $3$ & $7*10^-6$ & $1*10^-6$ & $6*10^-6$ & 0.7781512504 \\
+  \hline
+	$10^5$ & $5.68913$ & $2*10^-6$ & 5.689128 & 6.454015709 \\
+	\hline	
+\end{tabular}
+\end{center}
+	
+	\paragraph{}We clearly see here that the LU decomposition function of Armadillo is more efficient than our gaussian elimination algorithm. For large n, our algorithm is way less efficient than Armadillo. 
+	\paragraph{}
+		\begin{center}
+		\begin{tabular}{|*{2}{c|}}
+  \hline
+  \multicolumn{2}{|c|}{Number of FLOPs} \\
+	\hline
+	General case & LU decomposition\\
+	\hline	
+	$3n^3 + 2n^2 +2n -5$ & $\frac{2}{3} n^3$ \\
+	\hline
+\end{tabular}
+\end{center}
+	
+	\paragraph{} The gaussian elimination is still a well-balanced algorithm. It is easy to imagine and to code, its execution-time is fair, for not very very large n, it works for most of cases (see next section). It certainly do not have the best precision but it is balanced between the important criteria of programming. 
+	
+	\paragraph{}It is the programmer's responsibility to determine precisely what is important for his program. In our case, the resolution of a set of linear equation in an easy and quick way, the criteria are satisfied. But we wouldn't use this algorithm to launch a rocket… 
+	
+	\section{Limits of the gaussian elimination law}
+	\paragraph{} The gaussian elimination has many advantages. But the main drawback is that it works only for regular matrices. For a singular matrix, the algorithm returns a \emph{wrong} result (see the example 3 in the results file).
+	\paragraph{} Regular matrices are associated with bijective mapping. There has to be only one result for this equation. The error does not indeed come from the program but from the mathematical algorithm itself. Knowing this, we tried to cover as many cases as possible using the exit() function from C++, but it is fairly impossible to predict all possibilities in a relatively simple way.
+	\paragraph{}To make the program work correctly, the diagonal terms of the matrix $\mathbf{A}$ must not be zeros. Indeed, each substitution needs a division by a different non-zero diagonal coefficient.
+	\\However, we can fix that by swapping rows but it makes the algorithm more complicated. This goes against the method's peculiar simplicity. Moreover, it may use up memory unnecessarily because of the storage of some matrix rows. Even by doing that, the algorithm will not be perfect, the precision will not be improved. For those cases, we may think of a very optimized inverse or LU algorithm. 
+	
+	
+\chapter{Special case : tridiagonal matrix}
+
+\footnotesize{\itshape{The files for this chapter are in the folder "Tridiagonal case" on GitHub. You will find the program in C++ and some data from the algorithm.}}
+
+\normalsize
+
+	\paragraph{} Here, we attempt to specialize the general algorithm for tridiagonal matrices. The reasoning itself will be the same, but the declaration of the matrix elements will be different. The goal is to solve the one-dimensional Poisson equation using the gaussian elimination. 
+	
+	\section{The one-dimensional Poisson equation}
+	\paragraph{} We can write the Poisson equation as $-u''(x)=f(x)$, with $u''(x)$ the second derivative of $u(x)$ and $u$ the electrostatic potential. The Poisson equation is mainly used in electromagnetism to describe potential field caused by a charge. This is a simple example (because of its simplification $-u''(x)=f(x)$) of a linear second-order differential equation as we often find them in physics. 
+	
+		\subsection{Special use of Poisson equation}
+		\paragraph{} Before trying to solve this equation, let us be more specific on the conditions : we use here the Dirichlet boundary conditions.
+		\begin{equation*} 
+		-u''(x) = f(x), x \hspace{0.5cm} x\in(0,1), \hspace{0.5cm} u(0) = u(1) = 0
+		\end{equation*}
+		Then, we approximate $u$ with discretized values $v_{i}$ with grid points $x_{i} = ih , \hspace{0.3cm} i\in(0,n+1) $ and $x_{0} = 0$ and $x_{n+1} = 1$. We define also the step length as $h=1/(n+1)$, and the boundary conditions $v_{0} = v_{n+1} = 0$.
+		\\We have
+		\begin{align}
+		-u''(x) &= f(x)
+		\\-\frac{v_{i+1} + v_{i-1} - 2v_{i}}{h^2} &= f_{i} \hspace{0.5cm} \mathrm{for} \hspace{0.1cm} i = \overline {(1,n)}
+		\end{align}
+		
+		\subsection{Rewriting of the equation as a set of linear equations}
+		\begin{align}
+		&-\frac{v_{i+1} + v_{i-1} - 2v_{i}}{h^2} = f_{i} \hspace{0.5cm} \mathrm{for} \hspace{0.1cm} i = \overline {(1,n)}
+		\\ \Rightarrow \hspace{0,1cm} &-(v_{i+1} + v_{i-1} - 2v_{i}) = h^2 f_{i}
+		\\ \Rightarrow \hspace{0,1cm} &- v_{i-1} + 2v_{i} - v_{i+1} = h^2 f_{i}
+		\end{align}
+		So, if we express this equation in matrix form we have
+		\begin{equation*}
+		\begin{bmatrix}
+                           2& -1& 0 &\dots   & \dots &0 \\
+                           -1 & 2 & -1 &0 &\dots &\dots \\
+                           0&-1 &2 & -1 & 0 & \dots \\
+                           & \dots   & \dots &\dots   &\dots & \dots \\
+													 & \dots   & \dots &\dots   &\dots & \dots \\
+													 & \dots   & \dots &\dots   &\dots & \dots \\
+                           0&\dots   &  &-1 &2& -1 \\
+                           0&\dots    &  & 0  &-1 & 2 \\
+                      \end{bmatrix} . \begin{bmatrix}
+                           v_1\\
+                           v_2\\
+                           \dots \\
+                          v_{i-1}  \\
+													v_i \\
+													v_{i+1} \\
+                          \dots \\
+                           v_n\\
+                      \end{bmatrix}
+											= h^2 \begin{bmatrix}
+                           f_1\\
+                           f_2\\
+                           \dots \\
+                           f_{i-1} \\
+													f_i \\
+													f_{i+1} \\
+                          \dots \\
+                           f_n\\
+                      \end{bmatrix}
+		\end{equation*} 									
+		So we can rewrite the equation as
+		\begin{equation*}
+		\mathbf{A}\mathbf{v} = \tilde{\mathbf{b}},
+		\end{equation*}
+		with 
+		\begin{equation*}
+		\mathbf{A}  = \begin{bmatrix}
+                           2& -1& 0 &\dots   & \dots &0 \\
+                           -1 & 2 & -1 &0 &\dots &\dots \\
+                           0&-1 &2 & -1 & 0 & \dots \\
+                           & \dots   & \dots &\dots   &\dots & \dots \\
+                           0&\dots   &  &-1 &2& -1 \\
+                           0&\dots    &  & 0  &-1 & 2 \\
+                      \end{bmatrix} \hspace{0.3cm} \text{and}\hspace{0.3cm}		\tilde{\mathbf{b}} = h^2\mathbf{f}
+		\end{equation*} 
+		
+		\paragraph{} Now we have the Poisson equation written as a set of linear equation. We can use the gaussian elimination to solve it.
+		
+		\section{Special algorithm}
+			\subsection {Specialization of the general algorithm}
+		\paragraph{} In the special case program, we did not use a matrix as we did for the general case but three dynamic arrays to set the three diagonals. The vector $\tilde{\mathbf{b}}$ corresponds to $g$ in the program for more simplicity ; also be careful with the index $i$ in the program : $i$ in the program corresponds to $i+1$ in reality, that is because of arrays which must begin with $i=0$. The process is quite the same as the general case for the gaussian elimination.
+		
+			\subsection{Solution to the Poisson equation}
+			\paragraph{} By running the program, we have values for the approximate formula of Poisson equation $-\frac{v_{i+1} + v_{i-1} - 2v_{i}}{h^2} = f_{i}$. Let us compare these values to the closed-form solution of the equation $u(x) = 1 - ( 1 - e^{-10} ) x - e ^{-10x}$. What we have done with that program is to approach the exact value. See below the comparative graph between what we should have and our results. On top of that, main.cpp requires arguments :
+				\begin{itemize}
+				\item{argv[0] : name of the program} 
+				\item{argv[1] : size n}
+				\item{argv[2] : coefficient of the first diagonal}
+				\item{argv[3] : coefficient of the second diagonal}
+				\item{argv[4] : coefficient of the third diagonal}
+				\item{argv[5] : path of the file for the results}
+				\item{argv[6] : path of the file for the data}
+				
+			\end{itemize}
+				
+			
+			\begin{figure}[htbp]
+					\begin{center}
+							\input{Plots/tridiagonal10.tex}
+					\end{center}
+					\caption{Comparative graph between numerical and exact results for $n=10$}
+			\end{figure}
+				
+			\begin{figure}[htbp]
+					\begin{center}
+							\input{Plots/tridiagonal100.tex}
+					\end{center}
+					\caption{Comparative graph between numerical and exact results for $n=100$}
+			\end{figure}
+			
+			\begin{figure}[htbp]
+					\begin{center}
+							\input{Plots/tridiagonal1000.tex}
+					\end{center}
+					\caption{Comparative graph between numerical and exact results for $n=1000$}
+			\end{figure}
+			
+			
+	\paragraph{} We can see that for $n\geq 100$ (and even probably before that) the expected and the numerical results are similar.
+\\ The smaller the step length is the closer we are to the real plot and the more we have values the more we can be precise but we are still confronted with the numerical lack of precision for large values. (see examples in the results file)
+			
+			
+			\section{Comparisons}
+	
+			\begin{figure}[htbp]
+					\begin{center}
+							\input{Plots/errors.tex}
+					\end{center}
+					\caption{Relative error}
+			\end{figure}
+			
+		\paragraph{} The relative error is quite log-linear for log(n) until $n=10^5$. In theory, if $n$ tends to $\infty$, our precision gets to be perfect. However, since computers can only work with a finite number of numbers, the precision directly depends on the way we store numbers in the computer. For the float type, the computer uses 32 bits, for the double type, it uses 64 bits. This leads to a precision of ${10}^{-7}$, which implies that the computer considered all numbers $x\leq {10}^{-7}$ to be $0$. This is called the loss of numerical precision and it has been a problem here for the relative errors. In many cases, we asked the computer to compare two values, and the results may not be reliable\footnote{See the data files.}.
+			
+		\paragraph{}
+		\begin{center}
+		\begin{tabular}{|*{2}{c|}}
+  \hline
+  \multicolumn{2}{|c|}{Number of FLOPs} \\
+	\hline
+	General case & Tridiagonal case\\
+	\hline	
+	$3n^3 + 2n^2 +2n -5$ & $11n-6$ \\
+	\hline
+\end{tabular}
+\end{center}
+	
+		\chapter*{Conclusion}	
+		
+		\paragraph{} This project may be small but it gathers many of the problems a programer has to deal with every day : loss of numerical precision, simplicity of the algorithm, operation time, the ability to use the same code for future projects. We have developed this c++ algorithm to be a good balance of all the criteria. We know that it is not the most precise or the quickest  but it would be enough for most of the easy scientific problems. However we already realize that loss of numerical precision will be a crucial issue for other problems.
+		
+	
+				
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

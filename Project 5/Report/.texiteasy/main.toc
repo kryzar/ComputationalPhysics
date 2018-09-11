@@ -1,0 +1,53 @@
+\select@language {english}
+\select@language {english}
+\contentsline {chapter}{Introduction}{3}{chapter*.2}
+\contentsline {chapter}{\numberline {1}Theory and algorithms}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}One space-dimension equation}{4}{section.1.1}
+\contentsline {paragraph}{}{4}{section*.3}
+\contentsline {subsection}{\numberline {1.1.1}Analytical solution}{4}{subsection.1.1.1}
+\contentsline {paragraph}{}{4}{section*.4}
+\contentsline {subsection}{\numberline {1.1.2}Explicit scheme}{5}{subsection.1.1.2}
+\contentsline {paragraph}{}{5}{section*.5}
+\contentsline {paragraph}{}{7}{section*.6}
+\contentsline {subsection}{\numberline {1.1.3}Implicit scheme}{7}{subsection.1.1.3}
+\contentsline {paragraph}{}{7}{section*.7}
+\contentsline {paragraph}{}{8}{section*.8}
+\contentsline {paragraph}{}{8}{section*.9}
+\contentsline {subsection}{\numberline {1.1.4}Crank-Nicolson scheme}{9}{subsection.1.1.4}
+\contentsline {paragraph}{}{9}{section*.10}
+\contentsline {paragraph}{}{9}{section*.11}
+\contentsline {paragraph}{}{10}{section*.12}
+\contentsline {paragraph}{}{10}{section*.13}
+\contentsline {section}{\numberline {1.2}Two space-dimensions equations}{10}{section.1.2}
+\contentsline {paragraph}{}{10}{section*.14}
+\contentsline {chapter}{\numberline {2}Results analysis}{12}{chapter.2}
+\contentsline {paragraph}{}{12}{section*.15}
+\contentsline {section}{\numberline {2.1}One dimension}{12}{section.2.1}
+\contentsline {paragraph}{}{12}{section*.16}
+\contentsline {subsection}{\numberline {2.1.1}For a temperature $t=0.00001$}{12}{subsection.2.1.1}
+\contentsline {paragraph}{}{13}{section*.20}
+\contentsline {subsection}{\numberline {2.1.2}For a temperature $t=0.2$}{13}{subsection.2.1.2}
+\contentsline {paragraph}{}{13}{section*.24}
+\contentsline {subsection}{\numberline {2.1.3}Comparison}{14}{subsection.2.1.3}
+\contentsline {paragraph}{}{14}{section*.25}
+\contentsline {paragraph}{}{14}{section*.27}
+\contentsline {section}{\numberline {2.2}Two dimensions and discussion on the diffusion process}{15}{section.2.2}
+\contentsline {paragraph}{}{15}{section*.28}
+\contentsline {paragraph}{}{15}{section*.29}
+\contentsline {chapter}{\numberline {3}Stability properties of those algorithms}{17}{chapter.3}
+\contentsline {section}{\numberline {3.1}Theory}{17}{section.3.1}
+\contentsline {paragraph}{}{17}{section*.30}
+\contentsline {paragraph}{}{17}{section*.31}
+\contentsline {paragraph}{}{17}{section*.32}
+\contentsline {section}{\numberline {3.2}Observations}{17}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}One dimension}{17}{subsection.3.2.1}
+\contentsline {paragraph}{}{17}{section*.33}
+\contentsline {paragraph}{}{18}{section*.35}
+\contentsline {paragraph}{}{18}{section*.37}
+\contentsline {paragraph}{}{18}{section*.38}
+\contentsline {paragraph}{}{18}{section*.39}
+\contentsline {subsection}{\numberline {3.2.2}Two dimensions}{19}{subsection.3.2.2}
+\contentsline {paragraph}{}{19}{section*.41}
+\contentsline {paragraph}{}{19}{section*.43}
+\contentsline {paragraph}{}{20}{section*.45}
+\contentsline {chapter}{Conclusion}{21}{chapter*.46}

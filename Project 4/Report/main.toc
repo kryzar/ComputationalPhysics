@@ -1,0 +1,71 @@
+\select@language {english}
+\select@language {english}
+\contentsline {paragraph}{}{1}{section*.1}
+\contentsline {chapter}{Introduction}{3}{chapter*.3}
+\contentsline {paragraph}{}{3}{section*.4}
+\contentsline {paragraph}{}{3}{section*.5}
+\contentsline {chapter}{\numberline {1}Theory}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}The Ising model}{4}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}The general model}{4}{subsection.1.1.1}
+\contentsline {paragraph}{}{4}{section*.6}
+\contentsline {subsection}{\numberline {1.1.2}Two-dimensional square lattice model}{5}{subsection.1.1.2}
+\contentsline {paragraph}{}{5}{section*.7}
+\contentsline {paragraph}{}{5}{section*.8}
+\contentsline {section}{\numberline {1.2}Phase transition}{8}{section.1.2}
+\contentsline {paragraph}{}{8}{section*.9}
+\contentsline {subsection}{\numberline {1.2.1}The critical temperature}{8}{subsection.1.2.1}
+\contentsline {paragraph}{}{8}{section*.10}
+\contentsline {paragraph}{}{8}{section*.11}
+\contentsline {subsection}{\numberline {1.2.2}Around the critical temperature}{9}{subsection.1.2.2}
+\contentsline {paragraph}{}{9}{section*.12}
+\contentsline {paragraph}{}{9}{section*.13}
+\contentsline {section}{\numberline {1.3}The Metropolis algorithm}{9}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Introduction to the algorithm}{9}{subsection.1.3.1}
+\contentsline {paragraph}{}{9}{section*.14}
+\contentsline {paragraph}{}{9}{section*.15}
+\contentsline {paragraph}{}{10}{section*.16}
+\contentsline {subsection}{\numberline {1.3.2}The algorithm}{10}{subsection.1.3.2}
+\contentsline {paragraph}{}{10}{section*.17}
+\contentsline {paragraph}{}{10}{section*.18}
+\contentsline {paragraph}{}{11}{section*.19}
+\contentsline {chapter}{\numberline {2}Implementation}{12}{chapter.2}
+\contentsline {paragraph}{}{12}{section*.20}
+\contentsline {paragraph}{}{12}{section*.21}
+\contentsline {paragraph}{}{13}{section*.22}
+\contentsline {section}{\numberline {2.1}The Metropolis algorithm}{13}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Basic receipe}{13}{subsection.2.1.1}
+\contentsline {paragraph}{}{13}{section*.23}
+\contentsline {paragraph}{}{13}{section*.24}
+\contentsline {paragraph}{}{14}{section*.25}
+\contentsline {subsection}{\numberline {2.1.2}Use of MPI and outputs}{14}{subsection.2.1.2}
+\contentsline {paragraph}{}{14}{section*.26}
+\contentsline {paragraph}{}{14}{section*.27}
+\contentsline {chapter}{\numberline {3}Results}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}Two-dimensional squared lattice}{15}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}$2\times 2$ case}{15}{subsection.3.1.1}
+\contentsline {paragraph}{}{15}{section*.28}
+\contentsline {paragraph}{}{16}{section*.30}
+\contentsline {paragraph}{}{17}{section*.33}
+\contentsline {paragraph}{}{17}{section*.35}
+\contentsline {paragraph}{}{18}{section*.38}
+\contentsline {subsection}{\numberline {3.1.2}$20\times 20$ case}{18}{subsection.3.1.2}
+\contentsline {subsubsection}{Reach of the most likely state}{18}{section*.39}
+\contentsline {paragraph}{}{18}{section*.40}
+\contentsline {paragraph}{}{19}{section*.43}
+\contentsline {paragraph}{}{20}{section*.46}
+\contentsline {paragraph}{}{21}{section*.47}
+\contentsline {paragraph}{}{22}{section*.50}
+\contentsline {subsubsection}{The probability distribution of a given energy}{22}{section*.51}
+\contentsline {paragraph}{}{22}{section*.52}
+\contentsline {paragraph}{}{23}{section*.54}
+\contentsline {section}{\numberline {3.2}Phase transitions}{24}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}The Ising model near the critical temperature}{24}{subsection.3.2.1}
+\contentsline {paragraph}{}{24}{section*.55}
+\contentsline {paragraph}{}{26}{section*.64}
+\contentsline {paragraph}{}{26}{section*.65}
+\contentsline {subsection}{\numberline {3.2.2}The critical temperature}{27}{subsection.3.2.2}
+\contentsline {paragraph}{}{27}{section*.66}
+\contentsline {subsection}{\numberline {3.2.3}Reflexion}{27}{subsection.3.2.3}
+\contentsline {paragraph}{}{27}{section*.67}
+\contentsline {chapter}{Conclusion}{28}{chapter*.68}
+\contentsline {paragraph}{}{28}{section*.69}

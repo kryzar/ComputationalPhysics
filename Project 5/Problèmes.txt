@@ -1,0 +1,1 @@
+- En 1D, excplicit et implicit sont stables, mais Crank Nicolson ne donne le bon résultat que pour alpha = 1
